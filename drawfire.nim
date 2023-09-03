@@ -3,24 +3,27 @@ import nimfire/input
 import nimfire/types # required for 'brushDraw' proc
 import nimfire/draw
 import nimfire
+import os
 
-var w  = initWindow((1200, 800), "Drawfire", bg_colour=GREEN)  # creates window with green background
-var cr = newRect(pos=(50, 50), size=(50, 50), BLACK)            # rect showing current colour
-                                                                # we will use cr.colour
-                                                                # from now on, as it will
-                                                                # update more easily
+var w  = initWindow((1200, 800), "Drawfire", bg_colour=GREEN)
+var cr = newRect(pos=(50, 50), size=(50, 50), BLACK)
+
 var brush = 1 # size of a brush
+# but we can make more brush shapes!
+type
+  BRUSHES = enum  # we make enum, so it's easier for us to switch brushes
+    SLASH, SQUARE, CROSS
+var brush_type = SLASH # let's make SLASH as default type
 
-# since we have brush size, we will need to customise our drawing:
-# the bigger the brush, the bigger area got covered
-proc brushDraw(w: var Window, pos: (int, int)) =        # -var- Window because it is required by fillPos
-  for i in -brush..brush:    # we get two opposite ends which will let us to make "\" shape
-                             # this means minimal size of brush will be actually 3, as -1..1 is 3 pixels
-    let x = pos[0] + i  # let us go outside of our mouse position, since bigger brush must also touch
-    let y = pos[1] + i  # neighbouring pixels
+# then, we make procedures in style of previous 'brushDraw':
+# '\' slash
+proc brushDrawSlash(w: var Window, pos: (int, int)) =  # -var- Window because it is required by fillPos
+  for i in -brush..brush:
+    let x = pos[0] + i  # making both x and y follow the same 'i' makes them go in slash shape
+    let y = pos[1] + i
     w.fillPos((x, y), cr.colour)
 
-# we can also make different brush shape:
+# square
 proc brushDrawSquare(w: var Window, pos: (int, int)) =
   for i in -brush..brush:       # setting two loops let us cover square shape instead (kinda like x/y)
     for j in -brush..brush:
@@ -28,6 +31,7 @@ proc brushDrawSquare(w: var Window, pos: (int, int)) =
       let y = pos[1] + j  # we change our '+ i' into separate variable for each axis
       w.fillPos((x, y), cr.colour)
 
+# cross
 proc brushDrawCross(w: var Window, pos: (int, int)) =
   for i in -brush..brush:        # setting cross shape requires us to keep one axis unaffected
     let x = pos[0] + i
@@ -37,6 +41,7 @@ proc brushDrawCross(w: var Window, pos: (int, int)) =
     let x = pos[0]
     let y = pos[1] + j
     w.fillPos((x, y), cr.colour)
+
 
 while w.tick():
   w.drawRect(cr) # draws Rect showing current colour
@@ -54,6 +59,8 @@ while w.tick():
     cr.setColour(BLUE)
   elif w.getKeyPressed(KEY.Y):
     cr.setColour(YELLOW)
+  elif w.getKeyPressed(KEY.P):
+    cr.setColour(PURPLE)
   elif w.getKeyPressed(KEY.Q):
     w.clear()
   elif w.getKeyPressed(KEY.UP):   # we add two new options: changing size of a brush up and down
@@ -61,12 +68,25 @@ while w.tick():
   elif w.getKeyPressed(KEY.DOWN):
     if brush > 1:
       brush -= 1
+  elif w.getKeyPressed(KEY.LEFT):
+    case brush_type:                      # we make a bit primitive, but valid 'case' to switch brushes
+      of SLASH:  brush_type = SQUARE
+      of SQUARE: brush_type = CROSS
+      of CROSS:  brush_type = SLASH
+  elif w.getKeyPressed(KEY.RIGHT):
+    case brush_type:                      # we make a bit primitive, but valid 'case' to switch brushes
+      of SLASH:  brush_type = CROSS
+      of SQUARE: brush_type = SLASH
+      of CROSS:  brush_type = SQUARE
 
   # drawing with mouse
   if w.getMousePressed(LEFT):
     var pos = w.getMousePos()
-    brushDraw(w, pos) # we change code here to use our proc instead
-    # you can also use brushDrawSquare to test different brush types
+    # we use 'case' to set currently used brush
+    case brush_type:
+      of SLASH:  brushDrawSlash(w, pos)
+      of SQUARE: brushDrawSquare(w, pos)
+      of CROSS:  brushDrawCross(w, pos)
 
   w.update(manual=true)
 
