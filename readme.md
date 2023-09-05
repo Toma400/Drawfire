@@ -1,8 +1,8 @@
 ![](banner.png)
 **Drawfire** is simple drawing application made on [Nimfire framework](https://github.com/Toma400/Nimfire)
-as example to learn code from. However, during the process of writing it was also fun
-enough to become an app on its own.  
-Don't expect it anything groundbreaking - it is just fun side-project and it won't get
+as example to learn code from. However, process of writing it was also fun enough
+for me to decide to make it an app on its own.  
+Don't expect anything groundbreaking - it is just fun side-project and it won't get
 anywhere close to legends like Krita or GIMP. It's still fun to play with.
 
 ### What features does it have?
@@ -29,6 +29,13 @@ Here are shortcuts that you will need:
 |      Y       | Changes brush colour to yellow |
 |      P       | Changes brush colour to purple |
 
+### 0.1.1 Todo
+- [ ] Swapping control to buttons (colours, brush L/R swipe)
+- [ ] Window that showcases current brush, its size and colour
+- [ ] Filling tool
+- [ ] Erasing?
+- [ ] Copy-to-clipboard button
+
 ### Feature chart
 - [x] Basics
   - [x] Changing brush size
@@ -43,8 +50,13 @@ Here are shortcuts that you will need:
   - [x] Various brushes
     - [ ] Circle brush 
   - [ ] Custom brushes
+    - [ ] JSON-driven
+    - [ ] PNG-driven <!-- reading matrix and creating specific brush through it? -->
 - [X] Saving the image
+- [ ] Loading the image <!-- load.png is loaded and checked for boundaries
+                             would require Nimfire to make reverse 'toRect' -->
 - [ ] Advanced
   - [ ] Layers 
+  - [ ] Transparency support
 - [ ] APIs
   - [ ] Wacom 

@@ -7,12 +7,13 @@ import nimfire/draw
 import nimfire
 import os
 
-var w  = initWindow((1200, 800), "Drawfire", bg_colour=GREEN)
-var cr = newRect(pos=(150, 50), size=(50, 50), BLACK)
+var w    = initWindow((1280, 920), "Drawfire", bg_colour=GREEN)
+var cr   = newRect(pos=(950, 50), size=(50, 50), BLACK)
+var logo = newImage("banner.png", (0, 600))
 
-var canvas = newRect(pos=(300, 100), size=(800, 600), WHITE) # we create canvas Rect
-w.drawRect(canvas) # and draw outside of main loop
-                   # we will need it to not be updated unless we want that explicitly!
+var canvas = newRect(pos=(0, 0), size=(800, 600), WHITE) # we create canvas Rect
+w.drawRect(canvas)
+w.drawImage(logo)
 
 type
   BRUSHES = enum
@@ -50,7 +51,7 @@ proc brushDrawCross(w: var Window, pos: (int, int)) = # cross
     setPixel(canvas, (x, y), cr.colour)
 
 proc save(r: Rect) =
-    for i in 1..1000:
+    for i in 1..100_000:
       if not fileExists(fmt"image{i}.png"):
         saveImage(r.toImage(), fmt"image{i}.png")
         break
@@ -77,6 +78,7 @@ while w.tick():
     w.clear()
     clearPixels(canvas)
     w.drawRect(canvas)                    # we add redrawing canvas here, since this makes our canvas empty again
+    w.drawImage(logo)
   elif w.getKeyPressed(KEY.UP):
     brush += 1
   elif w.getKeyPressed(KEY.DOWN):
