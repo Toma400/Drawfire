@@ -1,0 +1,2 @@
+--d:release
+--app:gui
