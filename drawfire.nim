@@ -9,7 +9,7 @@ import brushes
 import buttons
 import os
 
-var w    = initWindow((1280, 920), "Drawfire", bg_colour=CHOCOLATE)
+var w    = initWindow((1280, 920), "Drawfire", resizable=true, bg_colour=CHOCOLATE)
 var logo = newImage("banner.png", (0, 600))
 
 # var canvbg = newRect(pos=(0, 0), size=(800, 600), WHITE) # background of canvas (if transparency is set, it allows for white background)
@@ -55,6 +55,16 @@ proc clear() =
       w.drawRect(greenButton)
       w.drawRect(redButton)
       w.drawRect(yellowButton)
+      w.drawRect(lightBlueButton)
+      w.drawRect(limeButton)
+      w.drawRect(orangeButton)
+      w.drawRect(brownButton)
+      w.drawRect(purpleButton)
+      w.drawRect(blackButton)
+      w.drawRect(whiteButton)
+      w.drawRect(grayButton)
+      w.drawRect(cyanButton)
+      w.drawRect(creamButton)
     block Images:
       w.drawImage(logo)
 
@@ -113,14 +123,20 @@ while w.tick():
     if collide(canvas, pos): # and we also add condition for drawing to do drawing only when it is within canvas
       brushDraw(w, pos, brush_type)
     else:
-      if collide(blueButton, pos):
-        brush_kind.setColour(BLUE)
-      elif collide(greenButton, pos):
-        brush_kind.setColour(GREEN)
-      elif collide(redButton, pos):
-        brush_kind.setColour(RED)
-      elif collide(yellowButton, pos):
-        brush_kind.setColour(YELLOW)
+      if collide(blueButton, pos):        brush_kind.setColour(BLUE)
+      elif collide(greenButton, pos):     brush_kind.setColour(GREEN)
+      elif collide(redButton, pos):       brush_kind.setColour(RED)
+      elif collide(yellowButton, pos):    brush_kind.setColour(YELLOW)
+      elif collide(lightBlueButton, pos): brush_kind.setColour(toRGBX(135, 171, 203, 255))
+      elif collide(limeButton, pos):      brush_kind.setColour(LIME)
+      elif collide(orangeButton, pos):    brush_kind.setColour(ORANGE_RED)
+      elif collide(brownButton, pos):     brush_kind.setColour(ACAJOU)
+      elif collide(purpleButton, pos):    brush_kind.setColour(PURPLE)
+      elif collide(blackButton, pos):     brush_kind.setColour(BLACK)
+      elif collide(whiteButton, pos):     brush_kind.setColour(WHITE)
+      elif collide(grayButton, pos):      brush_kind.setColour(toRGBX(126, 133, 138, 255))
+      elif collide(cyanButton, pos):      brush_kind.setColour(TEAL)
+      elif collide(creamButton, pos):     brush_kind.setColour(CREAM)
 
   w.update(manual=true)
 
