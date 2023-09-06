@@ -15,21 +15,22 @@ want to draw something really quickly, it will definitely be possible.
 Whenever you run the app, you get empty canvas. Draw with your mouse.  
 Here are shortcuts that you will need:
 
-|    Key(s)    | Usage                          |
-|:------------:|:-------------------------------|
-|     TAB      | Saves the image                |
-|      Q       | Clears the canvas              |
-|      T       | Changes transparency of canvas |
-|  UP / DOWN   | Changes size of brush          |
-| LEFT / RIGHT | Changes brush type             |
-|  `[` / `]`   | Change angle of dynamic brush  |
-|      B       | Changes brush colour to black  |
-|      W       | Changes brush colour to white  |
-|      L       | Changes brush colour to blue   |
-|      G       | Changes brush colour to green  |
-|      R       | Changes brush colour to red    |
-|      Y       | Changes brush colour to yellow |
-|      P       | Changes brush colour to purple |
+|    Key(s)    | Usage                            |
+|:------------:|:---------------------------------|
+|    MOUSE     | Use any of mouse buttons to draw |
+|     TAB      | Saves the image                  |
+|      Q       | Clears the canvas                |
+|      T       | Changes transparency of canvas   |
+|  UP / DOWN   | Changes size of brush            |
+| LEFT / RIGHT | Changes brush type               |
+|  `[` / `]`   | Change angle of dynamic brush    |
+|      B       | Changes brush colour to black    |
+|      W       | Changes brush colour to white    |
+|      L       | Changes brush colour to blue     |
+|      G       | Changes brush colour to green    |
+|      R       | Changes brush colour to red      |
+|      Y       | Changes brush colour to yellow   |
+|      P       | Changes brush colour to purple   |
 
 ### Feature chart
 None of features listed as `todo` here is promised to be completed.

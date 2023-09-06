@@ -10,6 +10,9 @@
 - Increased amount of brushes
   - Added circle brush
   - Added dynamic brushes, including custom-angled one
+- Added use of right-clicking mouse as alternative for drawing
+  (can be handy for left-handed people!)
+- Brush size was changed to 15 (previously: 1), so it doesn't need scaling up instantly
 
 ### 0.1.0
 - Added basic colours

@@ -9,14 +9,18 @@ import brushes
 import buttons
 import os
 
+proc getBanner(): Image =
+  if fileExists("banner.png"): return newImage("banner.png", (0, 600))
+  else:                        return newRect((0, 600), (1280, 320), CHOCOLATE).toImage
+
 var w    = initWindow((1280, 920), "Drawfire", resizable=true, bg_colour=CHOCOLATE)
-var logo = newImage("banner.png", (0, 600))
+var logo = getBanner()
 
 # var canvbg = newRect(pos=(0, 0), size=(800, 600), WHITE) # background of canvas (if transparency is set, it allows for white background)
 var canvas = newRect(pos=(0, 0), size=(800, 600), WHITE) # canvas (for drawing)
 
 var angle = 30
-var brush = 1 # size of a brush
+var brush = 15 # size of a brush
 var brush_type = BRUSHES.SLASH
 var brush_rect = newRect(pos=(820, 20), size=(180, 180), IWAI) # background
 var brush_kind = newRect(pos=(910, 110), size=(50, 50), BLACK)  # marker showcasing type of brush & colour
@@ -179,6 +183,11 @@ while w.tick():
           clear()
         elif collide(cleanButton, pos):
           clear()
+  if w.getMousePressed(RIGHT):
+    var pos = w.getMousePos()
+    if collide(canvas, pos):
+      brushDraw(w, pos, brush_type)
+      # fill(w, pos[0], pos[1]) # previously - bucket
 
   w.update(manual=true)
 
