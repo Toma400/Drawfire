@@ -3,6 +3,9 @@ import nimfire/draw
 import nimfire/types
 import nimfire
 
+proc isTransparent* (c: Rect): bool =
+    return c.colour == toRGBX(0, 0, 0, 0)
+
 var blueButton*   = newRect((1020, 20), (50, 50), BLUE)
 var greenButton*  = newRect((1080, 20), (50, 50), GREEN)
 var redButton*    = newRect((1140, 20), (50, 50), RED)
@@ -28,6 +31,11 @@ var saveButton*    = newRect((820, 280), (50, 50), ACAJOU)
 var saveButtonAE1* = newRect((830, 290), (30, 30), BLUE)
 var saveButtonAE2* = newRect((836, 290), (20, 10), GRAY)
 var saveButtonAE3* = newRect((842, 291), ( 8,  6), BLUE)
+
+var trButton*    = newRect((880, 280), (50, 50), ACAJOU) # transparency handling
+var trButtonAE1* = newRect((891, 291), (20, 20), WHITE)
+var trButtonAE2* = newRect((901, 301), (20, 20), BLACK)
+
 
 proc leftBrushButtonArrow* (w: var Window, size: int) =
     let pos = (835, 245)

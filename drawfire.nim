@@ -25,13 +25,27 @@ proc brushDraw(w: var Window, pos: (int, int), b: BRUSHES) =
     var coords = brushPick(b, brush, pos, angle)
     for coord in coords:
       w.fillPos(coord, brush_kind.colour)
-      setPixel(canvas, coord, brush_kind.colour)
+      setPixelAbsolute(canvas, coord, brush_kind.colour)
 
 proc save(r: Rect) =
     for i in 1..100_000:
       if not fileExists(fmt"image{i}.png"):
         saveImage(r.toImage(), fmt"image{i}.png")
         break
+
+proc trRedraw(cond: bool = true) =
+    if cond:
+      if isTransparent(canvas):
+        setColour(canvas, WHITE)
+      else:
+        setColour(canvas, toRGBX(0, 0, 0, 0))
+    w.drawRect(trButton)
+    if isTransparent(canvas):
+      w.drawRect(trButtonAE1)
+      w.drawRect(trButtonAE2)
+    else:
+      w.drawRect(trButtonAE2)
+      w.drawRect(trButtonAE1)
 
 proc clear() =
     w.clear()
@@ -46,6 +60,7 @@ proc clear() =
       w.drawRect(saveButtonAE1)
       w.drawRect(saveButtonAE2)
       w.drawRect(saveButtonAE3)
+      trRedraw(false)
       w.leftBrushButtonArrow(10)
       w.rightBrushButtonArrow(10)
     block Buttons:
@@ -88,17 +103,16 @@ while w.tick():
   elif w.getKeyPressed(KEY.RIGHT):
     w.drawRect(brush_rect)
     brush_type = cycleBrushes(brush_type, -1)
-  elif w.getKeyPressed(KEY.N):
+  elif w.getKeyPressed(KEY.L_BRACKET):
     w.drawRect(brush_rect)
     angle += -1
-  elif w.getKeyPressed(KEY.M):
+  elif w.getKeyPressed(KEY.R_BRACKET):
     w.drawRect(brush_rect)
     angle += 1
   elif w.getKeyPressed(KEY.TAB):
     save(canvas)
   elif w.getKeyPressed(KEY.T):
-    if canvas.colour == toRGBX(0, 0, 0, 0): setColour(canvas, WHITE)
-    else:                                   setColour(canvas, toRGBX(0, 0, 0, 0))
+    trRedraw()
     clear()
 
   # drawing with mouse
@@ -130,6 +144,9 @@ while w.tick():
           brush_type = cycleBrushes(brush_type, -1)
         elif collide(saveButton, pos):
           save(canvas)
+        elif collide(trButton, pos):
+          trRedraw()
+          clear()
 
   w.update(manual=true)
 

@@ -22,6 +22,7 @@ Here are shortcuts that you will need:
 |      T       | Changes transparency of canvas |
 |  UP / DOWN   | Changes size of brush          |
 | LEFT / RIGHT | Changes brush type             |
+|  `[` / `]`   | Change angle of dynamic brush  |
 |      B       | Changes brush colour to black  |
 |      W       | Changes brush colour to white  |
 |      L       | Changes brush colour to blue   |
@@ -31,6 +32,9 @@ Here are shortcuts that you will need:
 |      P       | Changes brush colour to purple |
 
 ### Feature chart
+None of features listed as `todo` here is promised to be completed.
+[See changelog for brief overview of changes](changelog.md).
+
 - [x] Basics
   - [x] Changing brush size
     - [ ] Brush size Rect 
