@@ -1,2 +1,3 @@
+--out:Drawfire.exe
 --d:release
 --app:gui

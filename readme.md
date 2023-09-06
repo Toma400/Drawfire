@@ -37,8 +37,7 @@ None of features listed as `todo` here is promised to be completed.
 [See changelog for brief overview of changes](changelog.md).
 
 - [x] Basics
-  - [x] Changing brush size
-    - [ ] Brush size Rect 
+  - [x] Changing brush size 
   - [ ] Filling tool
   - [ ] Eraser
 - [x] Colour
@@ -56,6 +55,18 @@ None of features listed as `todo` here is promised to be completed.
                              would require Nimfire to make reverse 'toRect' -->
 - [ ] Advanced
   - [ ] Layers 
-  - [ ] Transparency support
+  - [x] Transparency support
 - [ ] APIs
   - [ ] Wacom 
+
+<!-- 0.2.1:
+### 0.2.1
+[ ] Proper separating of transparency and background (commented out idea?)
+[ ] Load images
+[ ] Fill bucket
+[ ] Copy to clipboard
+### 0.2.2
+[ ] HSV picker
+[ ] JSON-driven or PNG-driven custom brushes?
+### 0.3.0
+[ ] Layers
