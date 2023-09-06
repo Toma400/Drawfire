@@ -19,6 +19,7 @@ var logo = getBanner()
 # var canvbg = newRect(pos=(0, 0), size=(800, 600), WHITE) # background of canvas (if transparency is set, it allows for white background)
 var canvas = newRect(pos=(0, 0), size=(800, 600), WHITE) # canvas (for drawing)
 
+var timer = 0
 var angle = 30
 var brush = 15 # size of a brush
 var brush_type = BRUSHES.SLASH
@@ -104,6 +105,8 @@ clear()
 while w.tick():
   brushDraw(w, brush_kind.pos, brush_type)
 
+  if timer > 0: timer -= 1 # ticks down the timer
+
   if w.getKeyPressed(KEY.B):
     brush_kind.setColour(BLACK)
   elif w.getKeyPressed(KEY.G):
@@ -127,14 +130,16 @@ while w.tick():
     w.drawRect(brush_rect)
     if brush > 1:
       brush -= 1
-  elif w.getKeyPressed(KEY.LEFT):
-    w.drawRect(brush_rect)
-    brush_type = cycleBrushes(brush_type, 1)
-    w.dynamicBrush()
-  elif w.getKeyPressed(KEY.RIGHT):
+  elif w.getKeyPressed(KEY.LEFT) and timer == 0:
     w.drawRect(brush_rect)
     brush_type = cycleBrushes(brush_type, -1)
     w.dynamicBrush()
+    timer = 20
+  elif w.getKeyPressed(KEY.RIGHT) and timer == 0:
+    w.drawRect(brush_rect)
+    brush_type = cycleBrushes(brush_type, +1)
+    w.dynamicBrush()
+    timer = 20
   elif w.getKeyPressed(KEY.L_BRACKET):
     w.drawRect(brush_rect)
     angle += -1
@@ -157,25 +162,29 @@ while w.tick():
       elif collide(greenButton, pos):     brush_kind.setColour(GREEN)
       elif collide(redButton, pos):       brush_kind.setColour(RED)
       elif collide(yellowButton, pos):    brush_kind.setColour(YELLOW)
-      elif collide(lightBlueButton, pos): brush_kind.setColour(toRGBX(135, 171, 203, 255))
+      elif collide(lightBlueButton, pos): brush_kind.setColour(uPASTEL_LIGHT_BLUE)
       elif collide(limeButton, pos):      brush_kind.setColour(LIME)
       elif collide(orangeButton, pos):    brush_kind.setColour(ORANGE_RED)
       elif collide(brownButton, pos):     brush_kind.setColour(ACAJOU)
       elif collide(purpleButton, pos):    brush_kind.setColour(PURPLE)
       elif collide(blackButton, pos):     brush_kind.setColour(BLACK)
       elif collide(whiteButton, pos):     brush_kind.setColour(WHITE)
-      elif collide(grayButton, pos):      brush_kind.setColour(toRGBX(126, 133, 138, 255))
+      elif collide(grayButton, pos):      brush_kind.setColour(GRAY)
       elif collide(cyanButton, pos):      brush_kind.setColour(TEAL)
       elif collide(creamButton, pos):     brush_kind.setColour(CREAM)
+      elif collide(baikoButton, pos):     brush_kind.setColour(BAIKO)
+      elif collide(crayButton, pos):      brush_kind.setColour(uGRAYED_CREAM)
       else:
-        if collide(leftBrushButton, pos):
-          w.drawRect(brush_rect)
-          brush_type = cycleBrushes(brush_type, 1)
-          w.dynamicBrush()
-        elif collide(rightBrushButton, pos):
+        if collide(leftBrushButton, pos) and timer == 0:
           w.drawRect(brush_rect)
           brush_type = cycleBrushes(brush_type, -1)
           w.dynamicBrush()
+          timer = 20
+        elif collide(rightBrushButton, pos) and timer == 0:
+          w.drawRect(brush_rect)
+          brush_type = cycleBrushes(brush_type, +1)
+          w.dynamicBrush()
+          timer = 20
         elif collide(saveButton, pos):
           save(canvas)
         elif collide(trButton, pos):

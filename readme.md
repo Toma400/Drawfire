@@ -60,7 +60,13 @@ None of features listed as `todo` here is promised to be completed.
   - [ ] Wacom 
 
 <!-- 0.2.1:
+- predefined colours (16, maybe more?) should be JSON-based if JSON is available
+  (it checks for JSON, if not it loads default colors, if exists it takes RGB into slots)
+- same with brushes, however default brushes are always there
+  - brushes can be JSON driven or PNG driven
+
 ### 0.2.1
+[ ] More colours
 [ ] Proper separating of transparency and background (commented out idea?)
 [ ] Load images
 [ ] Fill bucket
