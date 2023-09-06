@@ -36,6 +36,7 @@ var trButton*    = newRect((880, 280), (50, 50), ACAJOU) # transparency handling
 var trButtonAE1* = newRect((891, 291), (20, 20), WHITE)
 var trButtonAE2* = newRect((901, 301), (20, 20), BLACK)
 
+var cleanButton*    = newRect((950, 280), (50, 50), ACAJOU)
 
 proc leftBrushButtonArrow* (w: var Window, size: int) =
     let pos = (835, 245)
@@ -51,6 +52,19 @@ proc rightBrushButtonArrow* (w: var Window, size: int) =
         let x = pos[0]-abs(i)-j
         let y = pos[1]+i
         w.fillPos((x, y), uDARK_BROWN)
+proc cleanButtonCross* (wn: var Window) =
+    proc draw(p: (int, int), s: int, w: var Window) =
+      for i in -s..s:     # s = size
+        let x = p[0] + i  # p = pos
+        let y = p[1] + i
+        w.fillPos((x, y), RED)
+        let a = p[0] + i
+        let b = p[1] - i
+        w.fillPos((a, b), RED)
+    draw((976, 304), 12, wn)
+    draw((974, 304), 12, wn)
+    draw((976, 306), 12, wn)
+    draw((974, 306), 12, wn)
 
 # lists that should be updated to update drawing boards
 var colourButtons* = @[blueButton,

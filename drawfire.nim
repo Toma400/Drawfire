@@ -60,6 +60,8 @@ proc clear() =
       w.drawRect(saveButtonAE1)
       w.drawRect(saveButtonAE2)
       w.drawRect(saveButtonAE3)
+      w.drawRect(cleanButton)
+      w.cleanButtonCross()
       trRedraw(false)
       w.leftBrushButtonArrow(10)
       w.rightBrushButtonArrow(10)
@@ -146,6 +148,8 @@ while w.tick():
           save(canvas)
         elif collide(trButton, pos):
           trRedraw()
+          clear()
+        elif collide(cleanButton, pos):
           clear()
 
   w.update(manual=true)
