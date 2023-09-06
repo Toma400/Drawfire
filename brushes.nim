@@ -1,6 +1,5 @@
 import std/sequtils
 import std/math
-
 # Brush kinds to add
 # - algorithm (JSON) driven
 # - image (PNG) driven
@@ -21,15 +20,15 @@ proc cycleBrushes* (b: BRUSHES, order: int): BRUSHES =
         if brushS == b: return ix
 
     proc setIndex (ix: int, o: int): int =
-      if ix+o > brushList.len:
+      if ix+o > brushList.len-1:
         return setIndex(ix, o-brushList.len)
       elif ix+o < 0:
         return setIndex(ix, o+brushList.len)
       else:
-        return (ix+o)-1 # -1 because we aim for index
+        return (ix+o)
 
     let ix = getIndex(b)
-    return brushList[setIndex(ix, order)]
+    return brushList[setIndex(ix, order)] # -1 because we aim for index
 
 iterator brushSlash* (brush: int, pos: (int, int)): (int, int) =
     for i in -brush..brush:

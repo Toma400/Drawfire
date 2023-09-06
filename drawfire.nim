@@ -27,6 +27,29 @@ proc brushDraw(w: var Window, pos: (int, int), b: BRUSHES) =
       w.fillPos(coord, brush_kind.colour)
       setPixelAbsolute(canvas, coord, brush_kind.colour)
 
+proc dynamicBrush(w: var Window) =
+    let p = (910, 245)
+    let s = 15           # size of icon
+    var c = CHOCOLATE    # default colour: background
+    if brush_type in [ROTABLE_CROSS, ROTABLE_X, ROTABLE_Y, ROTABLE_MANUALLY]:
+      if   brush_type == ROTABLE_CROSS:    c = RED
+      elif brush_type == ROTABLE_X:        c = GREEN
+      elif brush_type == ROTABLE_Y:        c = BLUE
+      elif brush_type == ROTABLE_MANUALLY: c = CYAN
+    for x in -s..s:
+      if x > 0:
+        w.fillPos((p[0]+x, p[1]+x), c)
+        w.fillPos((p[0]+x, p[1]-x), c)
+      if x == 0:
+        for y in -s..s:
+          w.fillPos((p[0], p[1]+y), c)
+          if y == 0:
+            for x2 in -s..s:
+              w.fillPos((p[0]+x2, p[1]), c)
+      if x < 0:
+        w.fillPos((p[0]+x, p[1]+x), c)
+        w.fillPos((p[0]+x, p[1]-x), c)
+
 proc save(r: Rect) =
     for i in 1..100_000:
       if not fileExists(fmt"image{i}.png"):
@@ -62,6 +85,7 @@ proc clear() =
       w.drawRect(saveButtonAE3)
       w.drawRect(cleanButton)
       w.cleanButtonCross()
+      w.dynamicBrush()
       trRedraw(false)
       w.leftBrushButtonArrow(10)
       w.rightBrushButtonArrow(10)
@@ -102,9 +126,11 @@ while w.tick():
   elif w.getKeyPressed(KEY.LEFT):
     w.drawRect(brush_rect)
     brush_type = cycleBrushes(brush_type, 1)
+    w.dynamicBrush()
   elif w.getKeyPressed(KEY.RIGHT):
     w.drawRect(brush_rect)
     brush_type = cycleBrushes(brush_type, -1)
+    w.dynamicBrush()
   elif w.getKeyPressed(KEY.L_BRACKET):
     w.drawRect(brush_rect)
     angle += -1
@@ -141,9 +167,11 @@ while w.tick():
         if collide(leftBrushButton, pos):
           w.drawRect(brush_rect)
           brush_type = cycleBrushes(brush_type, 1)
+          w.dynamicBrush()
         elif collide(rightBrushButton, pos):
           w.drawRect(brush_rect)
           brush_type = cycleBrushes(brush_type, -1)
+          w.dynamicBrush()
         elif collide(saveButton, pos):
           save(canvas)
         elif collide(trButton, pos):
