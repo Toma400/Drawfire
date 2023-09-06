@@ -13,7 +13,7 @@ proc getBanner(): Image =
   if fileExists("banner.png"): return newImage("banner.png", (0, 600))
   else:                        return newRect((0, 600), (1280, 320), CHOCOLATE).toImage
 
-var w    = initWindow((1280, 920), "Drawfire", resizable=true, bg_colour=CHOCOLATE)
+var w    = initWindow((1280, 920), "Drawfire", bg_colour=CHOCOLATE)
 var logo = getBanner()
 
 # var canvbg = newRect(pos=(0, 0), size=(800, 600), WHITE) # background of canvas (if transparency is set, it allows for white background)
