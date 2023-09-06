@@ -15,25 +15,14 @@ var logo = newImage("banner.png", (0, 600))
 # var canvbg = newRect(pos=(0, 0), size=(800, 600), WHITE) # background of canvas (if transparency is set, it allows for white background)
 var canvas = newRect(pos=(0, 0), size=(800, 600), WHITE) # canvas (for drawing)
 
-type
-  BRUSHES = enum
-    SLASH, SQUARE, CROSS, CIRCLE
+var angle = 30
 var brush = 1 # size of a brush
-var brush_type = SLASH
+var brush_type = BRUSHES.SLASH
 var brush_rect = newRect(pos=(820, 20), size=(180, 180), IWAI) # background
 var brush_kind = newRect(pos=(910, 110), size=(50, 50), BLACK)  # marker showcasing type of brush & colour
 
 proc brushDraw(w: var Window, pos: (int, int), b: BRUSHES) =
-    var coords = newSeq[(int, int)]()
-    case b:
-      of SLASH:
-        for c in brushSlash(brush, pos): coords.add(c)
-      of SQUARE:
-        for c in brushSquare(brush, pos): coords.add(c)
-      of CROSS:
-        for c in brushCross(brush, pos): coords.add(c)
-      of CIRCLE:
-        for c in brushCircle(brush, pos): coords.add(c)
+    var coords = brushPick(b, brush, pos, angle)
     for coord in coords:
       w.fillPos(coord, brush_kind.colour)
       setPixel(canvas, coord, brush_kind.colour)
@@ -50,21 +39,18 @@ proc clear() =
     # w.drawRect(canvbg)
     w.drawRect(canvas)
     w.drawRect(brush_rect)
+    block GUI:
+      w.drawRect(leftBrushButton)
+      w.drawRect(rightBrushButton)
+      w.drawRect(saveButton)
+      w.drawRect(saveButtonAE1)
+      w.drawRect(saveButtonAE2)
+      w.drawRect(saveButtonAE3)
+      w.leftBrushButtonArrow(10)
+      w.rightBrushButtonArrow(10)
     block Buttons:
-      w.drawRect(blueButton)
-      w.drawRect(greenButton)
-      w.drawRect(redButton)
-      w.drawRect(yellowButton)
-      w.drawRect(lightBlueButton)
-      w.drawRect(limeButton)
-      w.drawRect(orangeButton)
-      w.drawRect(brownButton)
-      w.drawRect(purpleButton)
-      w.drawRect(blackButton)
-      w.drawRect(whiteButton)
-      w.drawRect(grayButton)
-      w.drawRect(cyanButton)
-      w.drawRect(creamButton)
+      for cbut in colourButtons:
+        w.drawRect(cbut)
     block Images:
       w.drawImage(logo)
 
@@ -98,18 +84,16 @@ while w.tick():
       brush -= 1
   elif w.getKeyPressed(KEY.LEFT):
     w.drawRect(brush_rect)
-    case brush_type:
-      of SLASH:  brush_type = SQUARE
-      of SQUARE: brush_type = CROSS
-      of CROSS:  brush_type = CIRCLE
-      of CIRCLE: brush_type = SLASH
+    brush_type = cycleBrushes(brush_type, 1)
   elif w.getKeyPressed(KEY.RIGHT):
     w.drawRect(brush_rect)
-    case brush_type:
-      of SLASH:  brush_type = CIRCLE
-      of SQUARE: brush_type = SLASH
-      of CROSS:  brush_type = SQUARE
-      of CIRCLE: brush_type = CROSS
+    brush_type = cycleBrushes(brush_type, -1)
+  elif w.getKeyPressed(KEY.N):
+    w.drawRect(brush_rect)
+    angle += -1
+  elif w.getKeyPressed(KEY.M):
+    w.drawRect(brush_rect)
+    angle += 1
   elif w.getKeyPressed(KEY.TAB):
     save(canvas)
   elif w.getKeyPressed(KEY.T):
@@ -137,6 +121,15 @@ while w.tick():
       elif collide(grayButton, pos):      brush_kind.setColour(toRGBX(126, 133, 138, 255))
       elif collide(cyanButton, pos):      brush_kind.setColour(TEAL)
       elif collide(creamButton, pos):     brush_kind.setColour(CREAM)
+      else:
+        if collide(leftBrushButton, pos):
+          w.drawRect(brush_rect)
+          brush_type = cycleBrushes(brush_type, 1)
+        elif collide(rightBrushButton, pos):
+          w.drawRect(brush_rect)
+          brush_type = cycleBrushes(brush_type, -1)
+        elif collide(saveButton, pos):
+          save(canvas)
 
   w.update(manual=true)
 

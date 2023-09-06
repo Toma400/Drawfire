@@ -19,6 +19,7 @@ Here are shortcuts that you will need:
 |:------------:|:-------------------------------|
 |     TAB      | Saves the image                |
 |      Q       | Clears the canvas              |
+|      T       | Changes transparency of canvas |
 |  UP / DOWN   | Changes size of brush          |
 | LEFT / RIGHT | Changes brush type             |
 |      B       | Changes brush colour to black  |
@@ -28,13 +29,6 @@ Here are shortcuts that you will need:
 |      R       | Changes brush colour to red    |
 |      Y       | Changes brush colour to yellow |
 |      P       | Changes brush colour to purple |
-
-### 0.1.1 Todo
-- [ ] Swapping control to buttons (colours, brush L/R swipe)
-- [ ] Window that showcases current brush, its size and colour
-- [ ] Filling tool
-- [ ] Erasing?
-- [ ] Copy-to-clipboard button
 
 ### Feature chart
 - [x] Basics
@@ -46,9 +40,9 @@ Here are shortcuts that you will need:
   - [x] Predefined colour picker 
   - [ ] Fluid colour picker 
 - [x] Brushes
-  - [ ] Notifier of current brush type & size 
+  - [x] Notifier of current brush type & size 
   - [x] Various brushes
-    - [ ] Circle brush 
+    - [x] Circle brush 
   - [ ] Custom brushes
     - [ ] JSON-driven
     - [ ] PNG-driven <!-- reading matrix and creating specific brush through it? -->
