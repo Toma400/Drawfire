@@ -1,30 +1,71 @@
+from chroma import ColorRGBX
+import std/private/oscommon
+import std/sequtils
+import std/tables
 import nimfire/colors
 import nimfire/draw
 import nimfire/types
 import nimfire
+import json
+
+var jsCols = newTable[string, seq[int]]()
+var dfCols = {  "1": BLUE,
+                "2": GREEN,
+                "3": RED,
+                "4": YELLOW,
+                "5": uPASTEL_LIGHT_BLUE,
+                "6": LIME,
+                "7": ORANGE_RED,
+                "8": ACAJOU,
+                "9": PURPLE,
+               "10": BLACK,
+               "11": WHITE,
+               "12": GRAY,
+               "13": TEAL,
+               "14": CREAM,
+               "15": BAIKO,
+               "16": uGRAYED_CREAM}.toTable
+
+if fileExists("colours.json"):
+  try:
+    var f = readFile("colours.json")
+    var js = parseJson(f)
+    for ix in 1..16:
+        var jns = js[$ix].getElems()
+        var ret = newSeq[int](3)
+        for ji in jns.items:
+            ret.add(ji.getInt())
+        jsCols[$ix] = ret
+  except: discard
+
+proc getColors* (s: string): ColorRGBX =
+    try: result = toRGBX(jsCols[s][3].uint8,
+                         jsCols[s][4].uint8,
+                         jsCols[s][5].uint8, 255.uint8)
+    except: result = dfCols[s]
 
 proc isTransparent* (c: Rect): bool =
     return c.colour == toRGBX(0, 0, 0, 0)
 
-var blueButton*   = newRect((1020, 20), (50, 50), BLUE)
-var greenButton*  = newRect((1080, 20), (50, 50), GREEN)
-var redButton*    = newRect((1140, 20), (50, 50), RED)
-var yellowButton* = newRect((1200, 20), (50, 50), YELLOW)
+var blueButton*   = newRect((1020, 20), (50, 50), getColors("1"))
+var greenButton*  = newRect((1080, 20), (50, 50), getColors("2"))
+var redButton*    = newRect((1140, 20), (50, 50), getColors("3"))
+var yellowButton* = newRect((1200, 20), (50, 50), getColors("4"))
 
-var lightBlueButton* = newRect((1020, 80), (50, 50), uPASTEL_LIGHT_BLUE)
-var limeButton*      = newRect((1080, 80), (50, 50), LIME)
-var orangeButton*    = newRect((1140, 80), (50, 50), ORANGE_RED)
-var brownButton*     = newRect((1200, 80), (50, 50), ACAJOU)
+var lightBlueButton* = newRect((1020, 80), (50, 50), getColors("5"))
+var limeButton*      = newRect((1080, 80), (50, 50), getColors("6"))
+var orangeButton*    = newRect((1140, 80), (50, 50), getColors("7"))
+var brownButton*     = newRect((1200, 80), (50, 50), getColors("8"))
 
-var purpleButton* = newRect((1020, 140), (50, 50), PURPLE)
-var blackButton*  = newRect((1080, 140), (50, 50), BLACK)
-var whiteButton*  = newRect((1140, 140), (50, 50), WHITE)
-var grayButton*   = newRect((1200, 140), (50, 50), GRAY)
+var purpleButton* = newRect((1020, 140), (50, 50), getColors("9"))
+var blackButton*  = newRect((1080, 140), (50, 50), getColors("10"))
+var whiteButton*  = newRect((1140, 140), (50, 50), getColors("11"))
+var grayButton*   = newRect((1200, 140), (50, 50), getColors("12"))
 
-var cyanButton*  = newRect((1020, 200), (50, 50), TEAL)
-var creamButton* = newRect((1080, 200), (50, 50), CREAM)
-var baikoButton* = newRect((1140, 200), (50, 50), BAIKO)
-var crayButton*  = newRect((1200, 200), (50, 50), uGRAYED_CREAM)
+var cyanButton*  = newRect((1020, 200), (50, 50), getColors("13"))
+var creamButton* = newRect((1080, 200), (50, 50), getColors("14"))
+var baikoButton* = newRect((1140, 200), (50, 50), getColors("15"))
+var crayButton*  = newRect((1200, 200), (50, 50), getColors("16"))
 
 var leftBrushButton* = newRect((820, 220), (50, 50), ACAJOU)
 var rightBrushButton* = newRect((950, 220), (50, 50), ACAJOU)

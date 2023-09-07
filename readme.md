@@ -66,13 +66,30 @@ None of features listed as `todo` here is promised to be completed.
   - brushes can be JSON driven or PNG driven
 
 ### 0.2.1
-[ ] More colours
+[x] JSON-driven colours
 [ ] Proper separating of transparency and background (commented out idea?)
-[ ] Load images
-[ ] Fill bucket
 [ ] Copy to clipboard
+[ ] Eraser (?)
+    - would just set pencil to background colour and reversely, remembering last
+      colour used
 ### 0.2.2
-[ ] HSV picker
+[ ] Load image
+[ ] Fill bucket
+### 0.2.3
 [ ] JSON-driven or PNG-driven custom brushes?
+[ ] Switchable pallettes? (by default `colours.json` is used, but you can have
+    multiple JSONs with different numbers (`colours2.json`, `colours3.json`) and
+    you can swap them mid-drawing using new buttons which would reload them?
+
 ### 0.3.0
 [ ] Layers
+[ ] HSV picker
+[ ] Transparency picker
+
+### 0.4.0
+[ ] Wacom support
+
+### 0.5.0
+[ ] Ctrl+Z? (would need storing last draws in some sequence of specific size
+             but this has capacity/lag issues and also would be hard to control
+             without some good precise timer)
