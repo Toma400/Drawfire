@@ -51,7 +51,7 @@ None of features listed as `todo` here is promised to be completed.
     - [ ] JSON-driven
     - [ ] PNG-driven <!-- reading matrix and creating specific brush through it? -->
 - [X] Saving the image
-- [ ] Loading the image <!-- load.png is loaded and checked for boundaries
+- [x] Loading the image <!-- load.png is loaded and checked for boundaries
                              would require Nimfire to make reverse 'toRect' -->
 - [ ] Advanced
   - [ ] Layers 
@@ -73,7 +73,10 @@ None of features listed as `todo` here is promised to be completed.
     - would just set pencil to background colour and reversely, remembering last
       colour used
 ### 0.2.2
-[ ] Load image
+[x] Load image: should load 'image1' if available and let you shuffle through
+                next ones, but whatever you draw is next image and you won't
+                overwrite anything (it will be easy in code because you simply
+                don't change anything and that's all XD)
 [ ] Fill bucket
 ### 0.2.3
 [ ] JSON-driven or PNG-driven custom brushes?

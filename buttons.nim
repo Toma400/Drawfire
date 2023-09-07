@@ -1,6 +1,5 @@
 from chroma import ColorRGBX
 import std/private/oscommon
-import std/sequtils
 import std/tables
 import nimfire/colors
 import nimfire/draw
@@ -80,6 +79,14 @@ var trButtonAE1* = newRect((891, 291), (20, 20), WHITE)
 var trButtonAE2* = newRect((901, 301), (20, 20), BLACK)
 
 var cleanButton*    = newRect((950, 280), (50, 50), ACAJOU)
+
+var leftImageButton*  = newRect((965, 410), (50, 50), ACAJOU)
+var rightImageButton* = newRect((1065, 410), (50, 50), ACAJOU)
+var loadImageButton*  = newRect((1025, 400), (30, 70), ACAJOU)
+# <
+# >
+# |
+# V
 
 proc leftBrushButtonArrow* (w: var Window, size: int) =
     let pos = (835, 245)

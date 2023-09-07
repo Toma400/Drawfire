@@ -1,4 +1,8 @@
+from pixie/fileformats/png import encodePng
+import clipboard
+import std/private/osdirs
 import std/strformat
+import std/sequtils
 import nimfire/colors
 import nimfire/input
 import nimfire/image # required for saving canvas as PNG
@@ -18,7 +22,10 @@ var logo = getBanner()
 
 # var canvbg = newRect(pos=(0, 0), size=(800, 600), WHITE) # background of canvas (if transparency is set, it allows for white background)
 var canvas = newRect(pos=(0, 0), size=(800, 600), WHITE) # canvas (for drawing)
+var images = newSeq[string]() # will handle
 
+# loaded image
+var load = 0
 var timer = 0
 var angle = 30
 var brush = 15 # size of a brush
@@ -55,6 +62,28 @@ proc dynamicBrush(w: var Window) =
         w.fillPos((p[0]+x, p[1]+x), c)
         w.fillPos((p[0]+x, p[1]-x), c)
 
+proc cycleImages(mode: int = 0) =
+    images = toSeq(walkFiles("image*.png"))
+    if mode == 1:
+      if images.len > load+1 and load+1 > 0:
+        load += 1
+        timer = 20
+      elif load+1 == images.len:
+        load  = 0
+        timer = 20
+    elif mode == -1:
+      # 4 > [-1] && 0 > 0
+      if load > 0:
+        load -= 1
+        timer = 20
+      elif load == 0:
+        load = images.len-1
+        timer = 20
+    try: # handling wrong size
+      canvas.matrix = newImage(images[load]).matrix
+      w.drawRect(canvas)
+    except: discard
+
 proc save(r: Rect) =
     for i in 1..100_000:
       if not fileExists(fmt"image{i}.png"):
@@ -89,6 +118,9 @@ proc clear() =
       w.drawRect(saveButtonAE2)
       w.drawRect(saveButtonAE3)
       w.drawRect(cleanButton)
+      w.drawRect(leftImageButton)
+      w.drawRect(rightImageButton)
+      w.drawRect(loadImageButton)
       w.cleanButtonCross()
       w.dynamicBrush()
       trRedraw(false)
@@ -107,23 +139,7 @@ while w.tick():
 
   if timer > 0: timer -= 1 # ticks down the timer
 
-  if w.getKeyPressed(KEY.B):
-    brush_kind.setColour(BLACK)
-  elif w.getKeyPressed(KEY.G):
-    brush_kind.setColour(GREEN)
-  elif w.getKeyPressed(KEY.R):
-    brush_kind.setColour(RED)
-  elif w.getKeyPressed(KEY.W):
-    brush_kind.setColour(WHITE)
-  elif w.getKeyPressed(KEY.L):
-    brush_kind.setColour(BLUE)
-  elif w.getKeyPressed(KEY.Y):
-    brush_kind.setColour(YELLOW)
-  elif w.getKeyPressed(KEY.P):
-    brush_kind.setColour(PURPLE)
-  elif w.getKeyPressed(KEY.Q):
-    clear()
-  elif w.getKeyPressed(KEY.UP):
+  if w.getKeyPressed(KEY.UP):
     w.drawRect(brush_rect)
     brush += 1
   elif w.getKeyPressed(KEY.DOWN):
@@ -151,6 +167,17 @@ while w.tick():
   elif w.getKeyPressed(KEY.T):
     trRedraw()
     clear()
+  elif w.getKeyPressed(KEY.L_CTRL) or w.getKeyPressed(KEY.R_CTRL):
+    discard
+  #     let p = clipboardWithName(CboardGeneral) # _H:0001 | _H:0007 | _H:0010 | _H:000D | HTML Format
+  #     writeData(p, "_H:0001", encodePng((canvas.toImage).png))
+  #     # setClipboardString(w.scr.win.ct, "Hello world".cstring) # encodePng((canvas.toImage).png)
+  #     # https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setclipboarddata
+  #     # https://learn.microsoft.com/en-us/windows/win32/dataxchg/standard-clipboard-formats
+  # https://github.com/search?q=clipboard+language%3ANim+&type=code
+  # https://github.com/search?q=repo%3Ayglukhov%2Fclipboard%20writeData&type=code
+  # https://duckduckgo.com/?q=image+to+byte&ia=web
+  # https://duckduckgo.com/?q=base64+into+bytes+nim&ia=answer
 
   # drawing with mouse
   if w.getMousePressed(LEFT):
@@ -187,6 +214,12 @@ while w.tick():
           timer = 20
         elif collide(saveButton, pos):
           save(canvas)
+        elif collide(leftImageButton, pos) and timer == 0:
+          cycleImages(-1)
+        elif collide(rightImageButton, pos) and timer == 0:
+          cycleImages(1)
+        elif collide(loadImageButton, pos) and timer == 0:
+          cycleImages()
         elif collide(trButton, pos):
           trRedraw()
           clear()
