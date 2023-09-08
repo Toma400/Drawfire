@@ -30,7 +30,7 @@ var timer = 0
 var angle = 30
 var brush = 15 # size of a brush
 var brush_type = BRUSHES.SLASH
-var brush_rect = newRect(pos=(820, 20), size=(180, 180), IWAI) # background
+let brush_rect = newRect(pos=(820, 20), size=(180, 180), IWAI) # background
 var brush_kind = newRect(pos=(910, 110), size=(50, 50), BLACK)  # marker showcasing type of brush & colour
 
 proc brushDraw(w: var Window, pos: (int, int), b: BRUSHES) =

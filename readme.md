@@ -11,6 +11,12 @@ and type. It exports images to PNG, of strict size 800x600.
 From advantages it has I would definitely say that it is extremely small - so if you
 want to draw something really quickly, it will definitely be possible.
 
+Additionally, you can feel safe with Nimfire drawing - it follows "no images lost"
+rule which means that you will never mistakingly overwrite any image you work on.  
+Whatever you save, is saved as new file, and whatever image you load and save after
+editing, is saved also as new file. While this may feel chaotic, it ensures you will
+always have as many history points of your image as you want.
+
 ### How to use it?
 Whenever you run the app, you get empty canvas. Draw with your mouse.  
 Here are shortcuts that you will need:
@@ -67,24 +73,27 @@ None of features listed as `todo` here is promised to be completed.
 
 ### 0.2.1
 [x] JSON-driven colours
-[ ] Proper separating of transparency and background (commented out idea?)
+[x] Load image: should load 'image1' if available and let you shuffle through
+                next ones, but whatever you draw is next image and you won't
+                overwrite anything (it will be easy in code because you simply
+                don't change anything and that's all XD)
 [ ] Copy to clipboard
 [ ] Eraser (?)
     - would just set pencil to background colour and reversely, remembering last
       colour used
 ### 0.2.2
-[x] Load image: should load 'image1' if available and let you shuffle through
-                next ones, but whatever you draw is next image and you won't
-                overwrite anything (it will be easy in code because you simply
-                don't change anything and that's all XD)
+[ ] Proper separating of transparency and background (commented out idea?)
 [ ] Fill bucket
 ### 0.2.3
 [ ] JSON-driven or PNG-driven custom brushes?
 [ ] Switchable pallettes? (by default `colours.json` is used, but you can have
     multiple JSONs with different numbers (`colours2.json`, `colours3.json`) and
     you can swap them mid-drawing using new buttons which would reload them?
+[ ] "Autosave" mode that saves images each 10/20/30 seconds in separate folder
+    and keeps last 50 versions?
 
 ### 0.3.0
+[ ] Revamping Drawfire GUI with Dylan's textures? :woa:
 [ ] Layers
 [ ] HSV picker
 [ ] Transparency picker

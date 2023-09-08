@@ -66,23 +66,23 @@ var creamButton* = newRect((1080, 200), (50, 50), getColors("14"))
 var baikoButton* = newRect((1140, 200), (50, 50), getColors("15"))
 var crayButton*  = newRect((1200, 200), (50, 50), getColors("16"))
 
-var leftBrushButton* = newRect((820, 220), (50, 50), ACAJOU)
-var rightBrushButton* = newRect((950, 220), (50, 50), ACAJOU)
+let leftBrushButton* = newRect((820, 220), (50, 50), ACAJOU)
+let rightBrushButton* = newRect((950, 220), (50, 50), ACAJOU)
 
-var saveButton*    = newRect((820, 280), (50, 50), ACAJOU)
-var saveButtonAE1* = newRect((830, 290), (30, 30), BLUE)
-var saveButtonAE2* = newRect((836, 290), (20, 10), GRAY)
-var saveButtonAE3* = newRect((842, 291), ( 8,  6), BLUE)
+let saveButton*    = newRect((820, 280), (50, 50), ACAJOU)
+let saveButtonAE1* = newRect((830, 290), (30, 30), BLUE)
+let saveButtonAE2* = newRect((836, 290), (20, 10), GRAY)
+let saveButtonAE3* = newRect((842, 291), ( 8,  6), BLUE)
 
-var trButton*    = newRect((880, 280), (50, 50), ACAJOU) # transparency handling
-var trButtonAE1* = newRect((891, 291), (20, 20), WHITE)
-var trButtonAE2* = newRect((901, 301), (20, 20), BLACK)
+let trButton*    = newRect((880, 280), (50, 50), ACAJOU) # transparency handling
+let trButtonAE1* = newRect((891, 291), (20, 20), WHITE)
+let trButtonAE2* = newRect((901, 301), (20, 20), BLACK)
 
-var cleanButton*    = newRect((950, 280), (50, 50), ACAJOU)
+let cleanButton*    = newRect((950, 280), (50, 50), ACAJOU)
 
-var leftImageButton*  = newRect((965, 410), (50, 50), ACAJOU)
-var rightImageButton* = newRect((1065, 410), (50, 50), ACAJOU)
-var loadImageButton*  = newRect((1025, 400), (30, 70), ACAJOU)
+let leftImageButton*  = newRect((965, 410), (50, 50), ACAJOU)
+let rightImageButton* = newRect((1065, 410), (50, 50), ACAJOU)
+let loadImageButton*  = newRect((1025, 400), (30, 70), ACAJOU)
 # <
 # >
 # |
@@ -117,7 +117,7 @@ proc cleanButtonCross* (wn: var Window) =
     draw((974, 306), 12, wn)
 
 # lists that should be updated to update drawing boards
-var colourButtons* = @[blueButton,
+let colourButtons* = @[blueButton,
                        greenButton,
                        redButton,
                        yellowButton,

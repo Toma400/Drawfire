@@ -5,6 +5,7 @@
 
 ### 0.2.1
 - Added a way to overwrite default palette by using `colours.json` file
+- Added loading of images
 
 ### 0.2.0
 - Created fully GUI-driven app, adding alternative to all key-driven features
