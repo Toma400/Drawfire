@@ -80,28 +80,53 @@ let trButtonAE2* = newRect((901, 301), (20, 20), BLACK)
 
 let cleanButton*    = newRect((950, 280), (50, 50), ACAJOU)
 
+let separator*        = newRect((800, 382), (480, 5), ACAJOU)
 let leftImageButton*  = newRect((965, 410), (50, 50), ACAJOU)
 let rightImageButton* = newRect((1065, 410), (50, 50), ACAJOU)
 let loadImageButton*  = newRect((1025, 400), (30, 70), ACAJOU)
-# <
-# >
-# |
-# V
 
 proc leftBrushButtonArrow* (w: var Window, size: int) =
-    let pos = (835, 245)
+    let pos = (835, 245)               # brush buttons
     for i in -size..size:
       for j in 0..(size-abs(i)):
         let x = pos[0]+abs(i)+j
         let y = pos[1]+i
         w.fillPos((x, y), uDARK_BROWN)
+
+    let pis = (985, 435)              # image switch buttons
+    for i in -size..size:
+      for j in 0..(size-abs(i)):
+        let x = pis[0]+abs(i)+j
+        let y = pis[1]+i
+        w.fillPos((x, y), MORNING_BLUE)
 proc rightBrushButtonArrow* (w: var Window, size: int) =
-    let pos = (985, 245)
+    let pos = (985, 245)               # brush buttons
     for i in -size..size:
       for j in 0..(size-abs(i)):
         let x = pos[0]-abs(i)-j
         let y = pos[1]+i
         w.fillPos((x, y), uDARK_BROWN)
+
+    let pis = (1095, 435)              # image switch buttons
+    for i in -size..size:
+      for j in 0..(size-abs(i)):
+        let x = pis[0]-abs(i)-j
+        let y = pis[1]+i
+        w.fillPos((x, y), MORNING_BLUE)
+proc downBrushButtonArrow* (w: var Window, size: int) =
+    let pis = (1040, 420)
+    for i in -size..size:
+      for j in 0..(size-abs(i)):
+        let x = pis[0]+i
+        let y = pis[1]-abs(i)+j
+        w.fillPos((x, y), uGRAYED_CREAM)
+
+    let pvs = (1040, 450)
+    for i in -size..size:
+      for j in 0..(size-abs(i)):
+        let x = pvs[0]+i
+        let y = pvs[1]-abs(i)+j
+        w.fillPos((x, y), uGRAYED_CREAM)
 proc cleanButtonCross* (wn: var Window) =
     proc draw(p: (int, int), s: int, w: var Window) =
       for i in -s..s:     # s = size

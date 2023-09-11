@@ -6,6 +6,12 @@
 ### 0.2.1
 - Added a way to overwrite default palette by using `colours.json` file
 - Added loading of images
+- Realigned GUI, so you have full canvas on the left and buttons (with resized
+  Drawfire, so it won't distract you with drawing) on the right
+- Drawfire logo now redirects you to [Drawfire releases page](https://github.com/Toma400/Drawfire/releases)
+  where you can see if there's new update available
+- Making whole Drawfire system mouse button-agnostic, meaning full mouse support
+  for both left- and right-handed
 
 ### 0.2.0
 - Created fully GUI-driven app, adding alternative to all key-driven features

@@ -1,8 +1,10 @@
 from pixie/fileformats/png import encodePng
 import clipboard
-import std/private/osdirs
 import std/strformat
+import std/browsers
 import std/sequtils
+import std/tables
+import std/os
 import nimfire/colors
 import nimfire/input
 import nimfire/image # required for saving canvas as PNG
@@ -14,7 +16,7 @@ import buttons
 import os
 
 proc getBanner(): Image =
-  if fileExists("banner.png"): return newImage("banner_small.png", (800, 480))
+  if fileExists("banner.png"): return newImage("banner.png", (800, 480))
   else:                        return newRect((0, 600), (1280, 320), CHOCOLATE).toImage
 
 var w    = initWindow((1280, 600), "Drawfire", bg_colour=CHOCOLATE) # 920
@@ -32,6 +34,7 @@ var brush = 15 # size of a brush
 var brush_type = BRUSHES.SLASH
 let brush_rect = newRect(pos=(820, 20), size=(180, 180), IWAI) # background
 var brush_kind = newRect(pos=(910, 110), size=(50, 50), BLACK)  # marker showcasing type of brush & colour
+var url_timer  = 0 # timer for avoiding re-clicking logo URL
 
 proc brushDraw(w: var Window, pos: (int, int), b: BRUSHES) =
     var coords = brushPick(b, brush, pos, angle)
@@ -80,8 +83,10 @@ proc cycleImages(mode: int = 0) =
         load = images.len-1
         timer = 20
     try: # handling wrong size
-      canvas.matrix = newImage(images[load]).matrix
-      w.drawRect(canvas)
+      let limg = newImage(images[load])
+      if limg.res[0] <= canvas.size[0] and limg.res[1] <= canvas.size[1]:
+        canvas.matrix = limg.matrix
+        w.drawRect(canvas)
     except: discard
 
 proc save(r: Rect) =
@@ -118,6 +123,7 @@ proc clear() =
       w.drawRect(saveButtonAE2)
       w.drawRect(saveButtonAE3)
       w.drawRect(cleanButton)
+      w.drawRect(separator)
       w.drawRect(leftImageButton)
       w.drawRect(rightImageButton)
       w.drawRect(loadImageButton)
@@ -126,6 +132,7 @@ proc clear() =
       trRedraw(false)
       w.leftBrushButtonArrow(10)
       w.rightBrushButtonArrow(10)
+      w.downBrushButtonArrow(8)
     block Buttons:
       for cbut in colourButtons:
         w.drawRect(cbut)
@@ -137,7 +144,8 @@ clear()
 while w.tick():
   brushDraw(w, brush_kind.pos, brush_type)
 
-  if timer > 0: timer -= 1 # ticks down the timer
+  if timer     > 0: timer     -= 1 # ticks down timers
+  if url_timer > 0: url_timer -= 1
 
   if w.getKeyPressed(KEY.UP):
     w.drawRect(brush_rect)
@@ -180,10 +188,11 @@ while w.tick():
   # https://duckduckgo.com/?q=base64+into+bytes+nim&ia=answer
 
   # drawing with mouse
-  if w.getMousePressed(LEFT):
+  if w.getMousePressed(LEFT) or w.getMousePressed(RIGHT):
     var pos = w.getMousePos()
     if collide(canvas, pos): # and we also add condition for drawing to do drawing only when it is within canvas
       brushDraw(w, pos, brush_type)
+      url_timer = 100
     else:
       if collide(blueButton, pos):        brush_kind.setColour(getColors("1"))
       elif collide(greenButton, pos):     brush_kind.setColour(getColors("2"))
@@ -225,11 +234,9 @@ while w.tick():
           clear()
         elif collide(cleanButton, pos):
           clear()
-  if w.getMousePressed(RIGHT):
-    var pos = w.getMousePos()
-    if collide(canvas, pos):
-      brushDraw(w, pos, brush_type)
-      # fill(w, pos[0], pos[1]) # previously - bucket
+        elif collide(logo, pos) and url_timer == 0:
+          openDefaultBrowser("https://github.com/Toma400/Drawfire/releases")
+          url_timer = 50
 
   w.update(manual=true)
 
