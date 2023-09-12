@@ -30,13 +30,9 @@ Here are shortcuts that you will need:
 |  UP / DOWN   | Changes size of brush            |
 | LEFT / RIGHT | Changes brush type               |
 |  `[` / `]`   | Change angle of dynamic brush    |
-|      B       | Changes brush colour to black    |
-|      W       | Changes brush colour to white    |
-|      L       | Changes brush colour to blue     |
-|      G       | Changes brush colour to green    |
-|      R       | Changes brush colour to red      |
-|      Y       | Changes brush colour to yellow   |
-|      P       | Changes brush colour to purple   |
+
+If you are not sure about something, please refer to [PDF Manual](docs/Drawfire%20Manual.pdf).
+It also comes with Drawfire bundle on [releases page](https://github.com/Toma400/Drawfire/releases).
 
 ### Feature chart
 None of features listed as `todo` here is promised to be completed.
@@ -57,26 +53,14 @@ None of features listed as `todo` here is promised to be completed.
     - [ ] JSON-driven
     - [ ] PNG-driven <!-- reading matrix and creating specific brush through it? -->
 - [X] Saving the image
-- [x] Loading the image <!-- load.png is loaded and checked for boundaries
-                             would require Nimfire to make reverse 'toRect' -->
+- [x] Loading the image
 - [ ] Advanced
   - [ ] Layers 
   - [x] Transparency support
 - [ ] APIs
   - [ ] Wacom 
 
-<!-- 0.2.1:
-- predefined colours (16, maybe more?) should be JSON-based if JSON is available
-  (it checks for JSON, if not it loads default colors, if exists it takes RGB into slots)
-- same with brushes, however default brushes are always there
-  - brushes can be JSON driven or PNG driven
-
-### 0.2.1
-[x] JSON-driven colours
-[x] Load image: should load 'image1' if available and let you shuffle through
-                next ones, but whatever you draw is next image and you won't
-                overwrite anything (it will be easy in code because you simply
-                don't change anything and that's all XD)
+<!--
 ### 0.2.2
 [ ] Switchable pallettes? (by default `colours.json` is used, but you can have
     multiple JSONs with different numbers (`colours2.json`, `colours3.json`) and

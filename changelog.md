@@ -1,7 +1,11 @@
 # Versions
+- [0.2.2](#0.2.2)
 - [0.2.1](#0.2.1)
 - [0.2.0](#0.2.0)
 - [0.1.0](#0.1.0)
+
+### 0.2.2
+
 
 ### 0.2.1
 - Added a way to overwrite default palette by using `colours.json` file
