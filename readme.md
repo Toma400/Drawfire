@@ -17,9 +17,11 @@ Whatever you save, is saved as new file, and whatever image you load and save af
 editing, is saved also as new file. While this may feel chaotic, it ensures you will
 always have as many history points of your image as you want.
 
+![](drawfire_example.png)
+
 ### How to use it?
 Whenever you run the app, you get empty canvas. Draw with your mouse.  
-Here are shortcuts that you will need:
+Here are shortcuts that you may need:
 
 |    Key(s)    | Usage                            |
 |:------------:|:---------------------------------|
@@ -69,6 +71,7 @@ None of features listed as `todo` here is promised to be completed.
 [ ] Eraser (?)
     - would just set pencil to background colour and reversely, remembering last
       colour used
+[ ] Fix URL linking too often/mistakingly
 ### 0.2.3
 [ ] Proper separating of transparency and background (commented out idea?)
 [ ] Fill bucket
